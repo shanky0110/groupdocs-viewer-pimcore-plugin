@@ -1,0 +1,1 @@
+## GroupDocs Viewer Plugin for PimCore CMS.
