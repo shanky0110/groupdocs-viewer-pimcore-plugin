@@ -11,6 +11,8 @@
 		<pluginClassName>GroupDocsViewer_Plugin</pluginClassName>
 		<pluginIncludePaths>
 			<path>/GroupDocsViewer/lib</path>
+            <path>/GroupDocsViewer/models</path>
+            <path>/GroupDocsViewer/controllers</path>
 		</pluginIncludePaths>
 		<pluginNamespaces>
 			<namespace>GroupDocsViewer</namespace>
