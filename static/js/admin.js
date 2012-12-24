@@ -43,15 +43,74 @@ pimcore.plugin.GroupDocsViewer = Class.create(pimcore.plugin.admin, {
 
 	},
 	dataLoaded : function(objAjax) {
-		alert(objAjax);
+//		alert(objAjax);
+		// File id
+		groupDocsViewer.fileid = new Ext.form.TextField({
+			value: objAjax.configs.fileid,
+			width: 250,
+			style: 'margin: 3px;'
+		});
+        // frame border width
+        groupDocsViewer.frameborder = new Ext.form.NumberField({
+            value: objAjax.configs.frameborder,
+            width: 250,
+            style: 'margin: 3px;'
+        });
+        // frame width
+        groupDocsViewer.width = new Ext.form.NumberField({
+            value: objAjax.configs.width,
+            width: 250,
+            style: 'margin: 3px;'
+        });
+        // frame height
+        groupDocsViewer.height = new Ext.form.NumberField({
+            value: objAjax.configs.height,
+            width: 250,
+            style: 'margin: 3px;'
+        });
 		groupDocsViewer.panel = new Ext.Panel({
 					id : "groupdocs_viewer_plugin_tab_panel",
 					title : "Configure GroupDocs Viewer",
 					iconCls : "groupdocs_viewer_plugin_tab_icon",
 					border : false,
-					layout : "fit",
+					layout : {
+						type: 'table',
+						columns: 2
+					},
 					closable : true,
-					items : []
+					items : [
+						{
+							xtype : 'label',
+							text : 'File ID: ',
+							style: 'margin: 3px;'
+						},
+						groupDocsViewer.fileid,
+                        {
+                            xtype : 'label',
+                            text : 'Frame border width: ',
+                            style: 'margin: 3px;'
+                        },
+                        groupDocsViewer.frameborder,
+                        {
+                            xtype : 'label',
+                            text : 'Frame width: ',
+                            style: 'margin: 3px;'
+                        },
+                        groupDocsViewer.width,
+                        {
+                            xtype : 'label',
+                            text : 'Frame height: ',
+                            style: 'margin: 3px;'
+                        },
+                        groupDocsViewer.height,
+                        {
+                        	xtype: 'button',
+                        	text: 'Save',
+                        	colspan: 2,
+                            width: 150,
+                            style: 'margin: 3px;'
+                        }
+					]
 				});
 
 		var tabPanel = Ext.getCmp("pimcore_panel_tabs");
