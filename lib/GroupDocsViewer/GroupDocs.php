@@ -48,8 +48,12 @@ class GroupDocsViewer_GroupDocs {
 			Logger::error("Failed to get configuration; ".$e->getMessage());
 			return null;
 		}
-
-		return $rows[0][$key];
+		for ($n = 0; $n < count($rows); $n += 1) {
+			if ($rows[$n]['id'] == 1) {
+				return $rows[$n][$key];
+			}
+		}
+		return null;
 	}
 
 	public function setConfig($values = array()) {
