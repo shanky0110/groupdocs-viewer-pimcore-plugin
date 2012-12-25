@@ -20,5 +20,8 @@
 		<pluginJsPaths>
 			<path>/GroupDocsViewer/static/js/admin.js</path>
 		</pluginJsPaths>
+        <pluginCssPaths>
+            <path>/GroupDocsViewer/static/css/admin.css</path>
+        </pluginCssPaths>
 	</plugin>
 </zend-config>

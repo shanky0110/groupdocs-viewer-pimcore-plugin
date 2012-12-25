@@ -16,7 +16,7 @@ pimcore.plugin.GroupDocsViewer = Class.create(pimcore.plugin.admin, {
 		var action = new Ext.Action({
 					id : "groupdocs_viewer_plugin_menu_item",
 					text : "Configure GroupDocs Viewer",
-					iconCls : "fraud_check_menu_icon",
+					iconCls : "groupdocs_viewer_plugin_menu_icon",
 					handler : this.showTab
 				});
 

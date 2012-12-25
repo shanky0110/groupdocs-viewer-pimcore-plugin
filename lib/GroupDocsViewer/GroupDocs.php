@@ -62,7 +62,7 @@ class GroupDocsViewer_GroupDocs {
 	public function renderFrame() {
 		return '<iframe src="https://apps.groupdocs.com/document-viewer/Embed/'
 				. $this->_fileid
-				. '?quality=50&use_pdf=False&download=False" frameborder="'
+				. '?quality=50&use_pdf=False&download=False&referer=PimCore/1.0" frameborder="'
 				. $this->_frameborder
 				. '" width="'
 				. $this->_width
