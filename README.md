@@ -11,5 +11,5 @@ For use plugin add code to your view:
 Also you can override default params like:
 ```php
 <?php $groupDocs1 = new GroupDocsViewer_GroupDocs(array( 'fileid' => '123', 'frameborder' => '1', 'width' => '680', 'height' => '900' )); ?>
-<?php echo $groupDocs->renderFrame(); ?>
+<?php echo $groupDocs1->renderFrame(); ?>
 ```
