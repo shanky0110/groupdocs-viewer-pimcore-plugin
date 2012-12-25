@@ -25,7 +25,7 @@ pimcore.plugin.GroupDocsViewer = Class.create(pimcore.plugin.admin, {
 
 	showTab : function() {
 		Ext.Ajax.request({
-					url : '/plugin/GroupDocsViewer/admin/configdata',
+					url : '/plugin/GroupDocsViewer/admin/loaddata',
 					success : function(response, options) {
 						var objAjax = Ext.decode(response.responseText);
 						groupDocsViewer.dataLoaded(objAjax);
@@ -43,31 +43,6 @@ pimcore.plugin.GroupDocsViewer = Class.create(pimcore.plugin.admin, {
 
 	},
 	dataLoaded : function(objAjax) {
-//		alert(objAjax);
-		// File id
-		groupDocsViewer.fileid = new Ext.form.TextField({
-			value: objAjax.configs.fileid,
-			width: 250,
-			style: 'margin: 3px;'
-		});
-        // frame border width
-        groupDocsViewer.frameborder = new Ext.form.NumberField({
-            value: objAjax.configs.frameborder,
-            width: 250,
-            style: 'margin: 3px;'
-        });
-        // frame width
-        groupDocsViewer.width = new Ext.form.NumberField({
-            value: objAjax.configs.width,
-            width: 250,
-            style: 'margin: 3px;'
-        });
-        // frame height
-        groupDocsViewer.height = new Ext.form.NumberField({
-            value: objAjax.configs.height,
-            width: 250,
-            style: 'margin: 3px;'
-        });
 		groupDocsViewer.panel = new Ext.Panel({
 					id : "groupdocs_viewer_plugin_tab_panel",
 					title : "Configure GroupDocs Viewer",
@@ -82,33 +57,62 @@ pimcore.plugin.GroupDocsViewer = Class.create(pimcore.plugin.admin, {
 						{
 							xtype : 'label',
 							text : 'File ID: ',
-							style: 'margin: 3px;'
+							style: 'margin: 8px 3px 3px 8px;'
 						},
-						groupDocsViewer.fileid,
+						{
+                            xtype: 'textfield',
+                            id : 'fileid',
+                            value: objAjax.configs.fileid,
+                            width: 250,
+                            allowBlank: false,
+                            style: 'margin: 8px 3px 3px 3px;'
+                        },
                         {
                             xtype : 'label',
                             text : 'Frame border width: ',
+                            style: 'margin: 3px 3px 3px 8px;'
+                        },
+                        {
+                            id: 'frameborder',
+                            xtype: 'numberfield',
+                            value: objAjax.configs.frameborder,
+                            width: 250,
+                            allowBlank: false,
                             style: 'margin: 3px;'
                         },
-                        groupDocsViewer.frameborder,
                         {
                             xtype : 'label',
                             text : 'Frame width: ',
+                            style: 'margin: 3px 3px 3px 8px;'
+                        },
+                        {
+                            id: 'width',
+                            xtype: 'numberfield',
+                            value: objAjax.configs.width,
+                            width: 250,
+                            allowBlank: false,
                             style: 'margin: 3px;'
                         },
-                        groupDocsViewer.width,
                         {
                             xtype : 'label',
                             text : 'Frame height: ',
+                            style: 'margin: 3px 3px 3px 8px;'
+                        },
+                        {
+                            id: 'height',
+                            xtype: 'numberfield',
+                            value: objAjax.configs.height,
+                            width: 250,
+                            allowBlank: false,
                             style: 'margin: 3px;'
                         },
-                        groupDocsViewer.height,
                         {
                         	xtype: 'button',
                         	text: 'Save',
                         	colspan: 2,
                             width: 150,
-                            style: 'margin: 3px;'
+                            style: 'margin: 3px 3px 3px 8px;',
+                            handler: groupDocsViewer.saveClick
                         }
 					]
 				});
@@ -118,6 +122,39 @@ pimcore.plugin.GroupDocsViewer = Class.create(pimcore.plugin.admin, {
 		tabPanel.activate("groupdocs_viewer_plugin_tab_panel");
 
 		pimcore.layout.refresh();
+	}, 
+	saveClick : function () {
+		var fileid = Ext.getCmp('fileid').getValue();
+		var frameborder = Ext.getCmp('frameborder').getValue();
+		var width = Ext.getCmp('width').getValue();
+		var height = Ext.getCmp('height').getValue();
+        Ext.Ajax.request({
+					url : '/plugin/GroupDocsViewer/admin/savedata',
+					params: {
+						'fileid' : fileid,
+						'frameborder' : frameborder,
+						'width' : width,
+						'height' : height
+					},
+					success : function(response, options) {
+                        Ext.MessageBox.show({
+                                    title : 'GroupDocs Plugin',
+                                    msg : 'Operation complete!',
+                                    buttons : Ext.MessageBox.OK,
+                                    animateTarget : 'mb9',
+                                    icon : Ext.MessageBox.SUCCESS
+                                });
+					},
+					failure : function(response, options) {
+						Ext.MessageBox.show({
+									title : 'GroupDocs Plugin Error',
+									msg : 'GroupDocs Plugin Error - can\'t save data!',
+									buttons : Ext.MessageBox.OK,
+									animateTarget : 'mb9',
+									icon : Ext.MessageBox.ERROR
+								});
+					}
+				});
 	}
 });
 var groupDocsViewer = new pimcore.plugin.GroupDocsViewer();

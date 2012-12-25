@@ -52,6 +52,10 @@ class GroupDocsViewer_GroupDocs {
 		return $rows[0][$key];
 	}
 
+	public function setConfig($values = array()) {
+		$this->_config->update($values, 'id = 1');
+	}
+
 	/**
 	 * Render html frame
 	 */
