@@ -1,10 +1,11 @@
 <?php
 
-class GroupDocsViewer_AdminController extends Pimcore_Controller_Action_Admin {
+class GroupDocsViewer_GroupDocsViewerAdminController extends Pimcore_Controller_Action_Admin {
 	/**
 	 * Return current values as json
 	 */
 	public function loaddataAction(){
+		$this->_helper->viewRenderer->setNoRender();
 		$conf = new GroupDocsViewer_GroupDocs();
 		$this->_helper->json(array('configs' =>
 				array(
@@ -27,10 +28,14 @@ class GroupDocsViewer_AdminController extends Pimcore_Controller_Action_Admin {
 		$frameborder = $this->_getParam("frameborder");
 		$width = $this->_getParam("width");
 		$height = $this->_getParam("height");
-		if (!empty($fileid) && !empty($frameborder) && !empty($width) && !empty($height)) {
+		if ($fileid != '' && $frameborder != '' && $width != '' && $height != '') {
 			$conf->setConfig(array( 'fileid' => $fileid, 'frameborder' => $frameborder, 'width' => $width, 'height' => $height ));
-			$this->_helper->json(array('success' => 'true'));
-			return;
+			$this->getResponse()->setHttpResponseCode(200);
 		}
+		else {
+			$this->getResponse()->setHttpResponseCode(500);
+			$this->view->message = 'Save error';
+		}
+		$this->_helper->viewRenderer->setNoRender();
 	}
 }

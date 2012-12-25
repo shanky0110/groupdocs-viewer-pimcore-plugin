@@ -25,7 +25,7 @@ pimcore.plugin.GroupDocsViewer = Class.create(pimcore.plugin.admin, {
 
 	showTab : function() {
 		Ext.Ajax.request({
-					url : '/plugin/GroupDocsViewer/admin/loaddata',
+					url : '/plugin/GroupDocsViewer/group-docs-viewer-admin/loaddata',
 					success : function(response, options) {
 						var objAjax = Ext.decode(response.responseText);
 						groupDocsViewer.dataLoaded(objAjax);
@@ -129,7 +129,7 @@ pimcore.plugin.GroupDocsViewer = Class.create(pimcore.plugin.admin, {
 		var width = Ext.getCmp('width').getValue();
 		var height = Ext.getCmp('height').getValue();
         Ext.Ajax.request({
-					url : '/plugin/GroupDocsViewer/admin/savedata',
+					url : '/plugin/GroupDocsViewer/group-docs-viewer-admin/savedata',
 					params: {
 						'fileid' : fileid,
 						'frameborder' : frameborder,
